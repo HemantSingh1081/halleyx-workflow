@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import ReactFlow, {
-  addEdge,
   Background,
   Controls,
   MiniMap,
@@ -12,119 +11,43 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-// Beautiful Custom Node
+// Node Type Configuration
+const NODE_CONFIG = {
+  task: { icon: '', gradient: 'linear-gradient(135deg, #3498db, #2980b9)' },
+  approval: { icon: '', gradient: 'linear-gradient(135deg, #f39c12, #e67e22)' },
+  notification: { icon: '', gradient: 'linear-gradient(135deg, #27ae60, #229954)' },
+  default: { icon: '', gradient: 'linear-gradient(135deg, #95a5a6, #7f8c8d)' }
+};
+
+// Custom Node Component
 const CustomNode = ({ data, isConnectable }) => {
-  // Different colors for different node types
-  const getNodeStyle = () => {
-    switch(data.type) {
-      case 'task':
-        return {
-          bg: '#e3f2fd',
-          border: '#2196f3',
-          icon: '⚙️',
-          gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-        };
-      case 'approval':
-        return {
-          bg: '#fff3e0',
-          border: '#ff9800',
-          icon: '✓',
-          gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
-        };
-      case 'notification':
-        return {
-          bg: '#e8f5e9',
-          border: '#4caf50',
-          icon: '🔔',
-          gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
-        };
-      default:
-        return {
-          bg: '#f5f5f5',
-          border: '#9e9e9e',
-          icon: '📦',
-          gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
-        };
-    }
-  };
-
-  const style = getNodeStyle();
-
+  const config = NODE_CONFIG[data.type] || NODE_CONFIG.default;
+  
   return (
     <div className="custom-node-wrapper">
-      {/* Top Handle (input) */}
-      <Handle
-        type="target"
-        position={Position.Top}
-        style={{ background: style.border, width: 10, height: 10 }}
-        isConnectable={isConnectable}
-      />
-      
-      <div 
-        className="custom-node"
-        style={{
-          background: style.gradient,
-          borderColor: style.border,
-        }}
-      >
-        <div className="node-icon">{style.icon}</div>
+      <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
+      <div className="custom-node" style={{ background: config.gradient }}>
+        <div className="node-icon">{config.icon}</div>
         <div className="node-content">
           <div className="node-type">{data.type}</div>
           <div className="node-label">{data.label}</div>
-          {data.description && (
-            <div className="node-description">{data.description}</div>
-          )}
         </div>
       </div>
-
-      {/* Bottom Handle (output) */}
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        style={{ background: style.border, width: 10, height: 10 }}
-        isConnectable={isConnectable}
-      />
+      <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );
 };
 
-// Edge with label
-const CustomEdge = ({
-  id,
-  sourceX,
-  sourceY,
-  targetX,
-  targetY,
-  sourcePosition,
-  targetPosition,
-  style = {},
-  data,
-  markerEnd,
-}) => {
-  const edgePath = `M${sourceX},${sourceY} C${sourceX + 50},${sourceY} ${targetX - 50},${targetY} ${targetX},${targetY}`;
+// Custom Edge with Label
+const CustomEdge = ({ id, sourceX, sourceY, targetX, targetY, data }) => {
+  const path = `M${sourceX},${sourceY} C${sourceX + 50},${sourceY} ${targetX - 50},${targetY} ${targetX},${targetY}`;
   
   return (
     <>
-      <path
-        id={id}
-        className="react-flow__edge-path"
-        d={edgePath}
-        style={{
-          ...style,
-          stroke: '#ff6b6b',
-          strokeWidth: 3,
-          strokeDasharray: data?.condition === 'DEFAULT' ? '0' : '5,5',
-        }}
-        markerEnd={markerEnd}
-      />
+      <path id={id} className="react-flow__edge-path" d={path} />
       {data?.condition && (
         <text>
-          <textPath
-            href={`#${id}`}
-            style={{ fontSize: 12, fill: '#333' }}
-            startOffset="50%"
-            textAnchor="middle"
-          >
+          <textPath href={`#${id}`} startOffset="50%" textAnchor="middle">
             {data.condition}
           </textPath>
         </text>
@@ -133,219 +56,131 @@ const CustomEdge = ({
   );
 };
 
-const edgeTypes = {
-  custom: CustomEdge,
-};
-
-const nodeTypes = {
-  custom: CustomNode,
-};
+const edgeTypes = { custom: CustomEdge };
+const nodeTypes = { custom: CustomNode };
 
 function WorkflowCanvas({ steps, rules, onStepsChange, onRulesChange }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selectedNode, setSelectedNode] = useState(null);
 
-  // Convert steps to beautiful nodes
+  // Convert steps to nodes
   useEffect(() => {
-    const newNodes = steps.map((step, index) => ({
+    setNodes(steps.map((step, i) => ({
       id: step.id,
       type: 'custom',
-      position: { 
-        x: 250 + (index % 2) * 300, 
-        y: Math.floor(index / 2) * 180 + 50 
-      },
-      data: { 
-        label: step.name, 
-        type: step.type || 'task',
-        description: step.description || ''
-      },
-    }));
-    
-    setNodes(newNodes);
-  }, [steps]);
+      position: { x: 250 + (i % 2) * 300, y: Math.floor(i / 2) * 150 + 50 },
+      data: { label: step.name, type: step.type || 'task' }
+    })));
+  }, [steps, setNodes]);
 
-  // Convert rules to beautiful edges
+  // Convert rules to edges
   useEffect(() => {
-    const newEdges = rules.map((rule, index) => {
-      const targetStep = steps.find(s => s.name === rule.next_step);
-      if (!targetStep) return null;
-      
-      return {
-        id: `edge-${index}-${Date.now()}`,
-        source: rule.step_id,
-        target: targetStep.id,
-        type: 'custom',
-        animated: true,
-        data: { condition: rule.condition },
-        style: { stroke: '#ff6b6b', strokeWidth: 2 },
-      };
-    }).filter(edge => edge !== null);
+    const validEdges = rules
+      .map(rule => {
+        const target = steps.find(s => s.name === rule.next_step);
+        return target ? {
+          id: `e-${rule.id}`,
+          source: rule.step_id,
+          target: target.id,
+          type: 'custom',
+          data: { condition: rule.condition }
+        } : null;
+      })
+      .filter(Boolean);
     
-    setEdges(newEdges);
-  }, [rules, steps]);
+    setEdges(validEdges);
+  }, [rules, steps, setEdges]);
 
-  const onConnect = useCallback(
-    (params) => {
-      const sourceStep = steps.find(s => s.id === params.source);
-      const targetStep = steps.find(s => s.id === params.target);
-      
-      if (sourceStep && targetStep) {
-        const condition = prompt('Enter condition (e.g., amount > 1000) or "DEFAULT":', 'DEFAULT');
-        if (condition === null) return;
-        
-        const newRule = {
-          id: Date.now().toString(),
-          step_id: params.source,
-          condition: condition || 'DEFAULT',
-          next_step: targetStep.name,
-        };
-        
-        onRulesChange([...rules, newRule]);
-      }
-    },
-    [steps, rules, onRulesChange]
-  );
-
-  const onNodeClick = (event, node) => {
-    setSelectedNode(node);
-  };
-
-  const onPaneClick = () => {
-    setSelectedNode(null);
-  };
-
-  const onNodesDelete = (deleted) => {
-    const deletedIds = deleted.map(n => n.id);
-    const newSteps = steps.filter(s => !deletedIds.includes(s.id));
-    onStepsChange(newSteps);
+  const onConnect = useCallback((params) => {
+    const source = steps.find(s => s.id === params.source);
+    const target = steps.find(s => s.id === params.target);
     
-    const newRules = rules.filter(r => !deletedIds.includes(r.step_id));
-    onRulesChange(newRules);
-  };
+    if (!source || !target) return;
+    
+    const condition = prompt('Condition (e.g., amount > 1000):', 'DEFAULT');
+    if (!condition) return;
+    
+    onRulesChange([...rules, {
+      id: Date.now().toString(),
+      step_id: params.source,
+      condition,
+      next_step: target.name
+    }]);
+  }, [steps, rules, onRulesChange]);
 
   const addNewStep = () => {
-    const stepName = prompt('Enter step name:');
-    if (!stepName) return;
+    const name = prompt('Step name:');
+    if (!name) return;
     
-    const stepType = prompt('Enter step type (task/approval/notification):', 'task');
+    const type = prompt('Type (task/approval/notification):', 'task') || 'task';
     
-    const newStep = {
-      id: `node-${Date.now()}-${Math.random()}`,
-      name: stepName,
-      type: stepType || 'task',
-    };
-    
-    onStepsChange([...steps, newStep]);
+    onStepsChange([...steps, {
+      id: `step-${Date.now()}`,
+      name,
+      type
+    }]);
   };
 
-  const saveLayout = () => {
-    alert('Layout saved! You can now execute the workflow.');
+  const updateSelectedNode = (field, value) => {
+    if (!selectedNode) return;
+    onStepsChange(steps.map(s => 
+      s.id === selectedNode.id ? { ...s, [field]: value } : s
+    ));
   };
 
   return (
-    <div style={{ height: 600, border: '1px solid #e0e0e0', borderRadius: 12, background: '#fafafa' }}>
+    <div style={{ height: 600, background: '#fafafa', borderRadius: 12 }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        onNodeClick={onNodeClick}
-        onPaneClick={onPaneClick}
-        onNodesDelete={onNodesDelete}
+        onNodeClick={(_, node) => setSelectedNode(node)}
+        onPaneClick={() => setSelectedNode(null)}
+        onNodesDelete={(deleted) => {
+          const deletedIds = deleted.map(n => n.id);
+          onStepsChange(steps.filter(s => !deletedIds.includes(s.id)));
+          onRulesChange(rules.filter(r => !deletedIds.includes(r.step_id)));
+        }}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        fitView
         deleteKeyCode={['Backspace', 'Delete']}
-        snapToGrid={true}
-        snapGrid={[15, 15]}
+        snapToGrid
       >
-        <Background color="#aaa" gap={16} />
+        <Background />
+        <Controls />
+        <MiniMap nodeColor={n => {
+          switch(n.data?.type) {
+            case 'task': return '#3498db';
+            case 'approval': return '#f39c12';
+            case 'notification': return '#27ae60';
+            default: return '#95a5a6';
+          }
+        }} />
         
-        <Controls 
-          style={{
-            bottom: 10,
-            right: 10,
-            left: 'auto',
-            top: 'auto',
-            borderRadius: 8,
-            overflow: 'hidden',
-          }}
-        />
-        
-        <MiniMap 
-          style={{
-            height: 120,
-            width: 200,
-            bottom: 10,
-            left: 10,
-            borderRadius: 8,
-          }}
-          nodeColor={(node) => {
-            switch(node.data?.type) {
-              case 'task': return '#2196f3';
-              case 'approval': return '#ff9800';
-              case 'notification': return '#4caf50';
-              default: return '#9e9e9e';
-            }
-          }}
-        />
-        
-        <Panel position="top-left" style={{ display: 'flex', gap: 10 }}>
-          <button 
-            onClick={addNewStep}
-            className="canvas-btn primary"
-          >
-            ➕ Add Step
-          </button>
-          <button 
-            onClick={saveLayout}
-            className="canvas-btn success"
-          >
-            Save Layout
-          </button>
+        <Panel position="top-left">
+          <button onClick={addNewStep} className="canvas-btn primary"> Add Step</button>
         </Panel>
         
         {selectedNode && (
           <Panel position="top-right">
             <div className="node-editor">
-              <h4 style={{ margin: '0 0 15px 0', color: '#333' }}>
-                 Edit Step
-              </h4>
-              <div className="form-group">
-                <label>Name:</label>
-                <input
-                  type="text"
-                  value={selectedNode.data.label}
-                  onChange={(e) => {
-                    const newSteps = steps.map(s => 
-                      s.id === selectedNode.id 
-                        ? { ...s, name: e.target.value }
-                        : s
-                    );
-                    onStepsChange(newSteps);
-                  }}
-                />
-              </div>
-              <div className="form-group">
-                <label>Type:</label>
-                <select
-                  value={selectedNode.data.type}
-                  onChange={(e) => {
-                    const newSteps = steps.map(s => 
-                      s.id === selectedNode.id 
-                        ? { ...s, type: e.target.value }
-                        : s
-                    );
-                    onStepsChange(newSteps);
-                  }}
-                >
-                  <option value="task">Task</option>
-                  <option value="approval">Approval</option>
-                  <option value="notification">Notification</option>
-                </select>
-              </div>
+              <h4> Edit Step</h4>
+              <input
+                value={selectedNode.data.label}
+                onChange={e => updateSelectedNode('name', e.target.value)}
+                placeholder="Name"
+              />
+              <select
+                value={selectedNode.data.type}
+                onChange={e => updateSelectedNode('type', e.target.value)}
+              >
+                <option value="task"> Task</option>
+                <option value="approval"> Approval</option>
+                <option value="notification"> Notification</option>
+              </select>
             </div>
           </Panel>
         )}

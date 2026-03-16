@@ -1,4 +1,4 @@
-/* ===== RESET & BASE STYLES ===== */
+/* ===== RESET & BASE ===== */
 * {
   margin: 0;
   padding: 0;
@@ -12,32 +12,31 @@ body {
   line-height: 1.6;
 }
 
-/* ===== APP HEADER ===== */
+/* ===== HEADER ===== */
 .app-header {
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  background: linear-gradient(135deg, #2c3e50, #3498db);
   color: white;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
 .app-header h1 {
   font-size: 1.8rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+  background: linear-gradient(135deg, #fff, #f0f0f0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .app-header nav {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 .app-header nav button {
@@ -49,29 +48,26 @@ body {
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s;
-  backdrop-filter: blur(5px);
 }
 
 .app-header nav button:hover {
   background: rgba(255,255,255,0.2);
   border-color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255,255,255,0.2);
 }
 
-/* ===== MAIN CONTENT ===== */
+/* ===== MAIN ===== */
 main {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* ===== WORKFLOW LIST PAGE ===== */
+/* ===== WORKFLOW LIST ===== */
 .workflow-list-container {
   padding: 1rem;
 }
 
-/* Header Section */
 .list-header {
   display: flex;
   justify-content: space-between;
@@ -83,43 +79,31 @@ main {
 
 .header-title h1 {
   font-size: 2.5rem;
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  background: linear-gradient(135deg, #2c3e50, #3498db);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
-}
-
-.header-title p {
-  color: #666;
-  font-size: 1.1rem;
 }
 
 .create-btn {
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  background: linear-gradient(135deg, #2c3e50, #3498db);
   color: white;
   border: none;
   padding: 1rem 2rem;
   border-radius: 12px;
-  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s;
-  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
 .create-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+  box-shadow: 0 6px 20px rgba(52,152,219,0.4);
 }
 
-.btn-icon {
-  font-size: 1.2rem;
-}
-
-/* Filters Section */
+/* Filters */
 .filters-section {
   display: flex;
   justify-content: space-between;
@@ -130,7 +114,6 @@ main {
   background: white;
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .search-box {
@@ -152,14 +135,11 @@ main {
   padding: 0.8rem 1rem 0.8rem 2.5rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s;
 }
 
 .search-box input:focus {
   outline: none;
   border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
 }
 
 .filter-tabs {
@@ -176,7 +156,6 @@ main {
   background: transparent;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
   color: #666;
   transition: all 0.3s;
 }
@@ -195,7 +174,6 @@ main {
   margin-bottom: 2rem;
 }
 
-/* Workflow Card */
 .workflow-card {
   background: white;
   border-radius: 16px;
@@ -213,7 +191,7 @@ main {
 /* Card Header */
 .card-header {
   padding: 1.5rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -224,27 +202,21 @@ main {
   width: 50px;
   height: 50px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  background: linear-gradient(135deg, #2c3e50, #3498db);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   font-weight: bold;
-  box-shadow: 0 4px 10px rgba(52,152,219,0.3);
-}
-
-.workflow-info {
-  flex: 1;
 }
 
 .workflow-info h3 {
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.3rem;
   color: #333;
-  font-size: 1.2rem;
 }
 
-/* Status Badges */
+/* Status Badge */
 .status-badge {
   display: inline-block;
   padding: 0.2rem 0.8rem;
@@ -286,20 +258,6 @@ main {
   color: #555;
 }
 
-.meta-icon {
-  font-size: 1rem;
-}
-
-.step-info {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.step-icon {
-  font-size: 1rem;
-}
-
 .created-date {
   display: flex;
   align-items: center;
@@ -308,10 +266,6 @@ main {
   font-size: 0.9rem;
   padding-top: 1rem;
   border-top: 1px dashed #e0e0e0;
-}
-
-.date-icon {
-  font-size: 1rem;
 }
 
 /* Card Footer */
@@ -330,12 +284,11 @@ main {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
+  transition: all 0.3s;
 }
 
 .action-btn.edit {
@@ -374,7 +327,6 @@ main {
   padding: 4rem 2rem;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .empty-icon {
@@ -383,24 +335,12 @@ main {
   opacity: 0.5;
 }
 
-.empty-state h3 {
-  color: #333;
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
-}
-
-.empty-state p {
-  color: #666;
-  margin-bottom: 2rem;
-}
-
 .create-empty-btn {
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  background: linear-gradient(135deg, #2c3e50, #3498db);
   color: white;
   border: none;
   padding: 1rem 2rem;
   border-radius: 8px;
-  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -423,7 +363,6 @@ main {
 .workflow-editor h2 {
   margin-bottom: 1.5rem;
   color: #2c3e50;
-  font-size: 1.8rem;
 }
 
 .form-group {
@@ -439,19 +378,19 @@ main {
   text-transform: uppercase;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 0.8rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 1rem;
   transition: all 0.3s;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
   border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
 }
 
 /* Tab Switcher */
@@ -471,7 +410,6 @@ main {
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 14px;
   font-weight: 600;
   border-radius: 8px;
   transition: all 0.3s;
@@ -484,11 +422,6 @@ main {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.tab-switcher button:hover:not(.active) {
-  background: rgba(255,255,255,0.5);
-  color: #333;
-}
-
 /* Steps & Rules Sections */
 .steps-section, .rules-section {
   border: 2px solid #f0f0f0;
@@ -498,12 +431,6 @@ main {
   background: #fafafa;
 }
 
-.steps-section h3, .rules-section h3 {
-  margin-bottom: 1rem;
-  color: #2c3e50;
-  font-size: 1.2rem;
-}
-
 .add-step, .add-rule {
   display: flex;
   gap: 0.5rem;
@@ -511,12 +438,19 @@ main {
   flex-wrap: wrap;
 }
 
-.add-step input {
+.add-step input,
+.add-step select,
+.add-rule select,
+.add-rule input {
   flex: 1;
-  min-width: 200px;
+  min-width: 150px;
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
 }
 
-.add-step button, .add-rule button {
+.add-step button,
+.add-rule button {
   padding: 0.8rem 1.5rem;
   background: #2c3e50;
   color: white;
@@ -527,27 +461,19 @@ main {
   transition: all 0.3s;
 }
 
-.add-step button:hover, .add-rule button:hover {
+.add-step button:hover,
+.add-rule button:hover {
   background: #34495e;
   transform: translateY(-2px);
 }
 
-.add-rule select, .add-rule input {
-  flex: 1;
-  min-width: 150px;
-  padding: 0.8rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 0.9rem;
-}
-
 /* Lists */
-ul {
+.steps-list, .rules-list {
   list-style: none;
   margin-top: 1rem;
 }
 
-li {
+.steps-list li, .rules-list li {
   padding: 0.8rem;
   background: white;
   margin-bottom: 0.5rem;
@@ -556,25 +482,38 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s;
 }
 
-li:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+.rules-list li.reject-rule {
+  border-left: 4px solid #e74c3c;
+  background: #fef5f5;
 }
 
-li button {
-  padding: 0.3rem 0.8rem;
+.delete-btn {
   background: #ffebee;
   color: #f44336;
   border: none;
+  padding: 0.3rem 0.8rem;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-li button:hover {
+.delete-btn:hover {
   background: #ffcdd2;
+}
+
+.empty-msg {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+  border-left-color: #ccc;
+}
+
+.reject-option {
+  color: #e74c3c;
+  font-weight: bold;
 }
 
 /* Form Actions */
@@ -599,18 +538,12 @@ li button:hover {
   color: white;
 }
 
-.actions button:first-child:hover {
-  background: #34495e;
-  transform: translateY(-2px);
-}
-
 .actions button:last-child {
   background: #f5f5f5;
   color: #666;
 }
 
-.actions button:last-child:hover {
-  background: #e0e0e0;
+.actions button:hover {
   transform: translateY(-2px);
 }
 
@@ -624,27 +557,18 @@ li button:hover {
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-.execution-view h2 {
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
-  font-size: 1.8rem;
-}
-
 .execution-view textarea {
   width: 100%;
   padding: 1rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   margin: 1rem 0;
-  font-family: 'Monaco', 'Menlo', monospace;
-  font-size: 0.9rem;
-  transition: all 0.3s;
+  font-family: monospace;
 }
 
 .execution-view textarea:focus {
   outline: none;
   border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
 }
 
 .execution-view button {
@@ -668,35 +592,15 @@ li button:hover {
   cursor: not-allowed;
 }
 
-/* Status Indicators */
-.status-in_progress {
-  color: #f39c12;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+/* Status Colors */
+.status-in_progress { color: #f39c12; font-weight: bold; }
+.status-completed { color: #27ae60; font-weight: bold; }
+.status-rejected { color: #e74c3c; font-weight: bold; }
+.status-failed { color: #e67e22; font-weight: bold; }
+.status-canceled { color: #95a5a6; font-weight: bold; }
 
-.status-completed {
-  color: #27ae60;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.status-failed, .status-canceled {
-  color: #e74c3c;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-/* Logs Section */
-.logs {
-  margin: 2rem 0;
-}
-
-.logs h4 {
-  margin-bottom: 1rem;
-  color: #2c3e50;
-  font-size: 1.2rem;
-}
+/* Logs */
+.logs { margin: 2rem 0; }
 
 .log-entry {
   background: #f8f9fa;
@@ -707,40 +611,27 @@ li button:hover {
   transition: all 0.3s;
 }
 
-.log-entry:hover {
-  transform: translateX(5px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
+.log-entry:hover { transform: translateX(5px); }
 
-.log-entry strong {
-  color: #3498db;
-  margin-right: 1rem;
-}
+.log-entry.rejected { border-left-color: #e74c3c; background: #fef5f5; }
+.log-entry.failed { border-left-color: #e67e22; background: #fef8e7; }
+.log-entry.canceled { border-left-color: #95a5a6; background: #f8f9fa; }
 
-.log-status-started {
-  color: #f39c12;
-}
-
-.log-status-completed {
-  color: #27ae60;
-}
-
-.log-status-rule_matched {
-  color: #3498db;
-}
+.log-status-started { color: #f39c12; }
+.log-status-completed { color: #27ae60; }
+.log-status-rejected { color: #e74c3c; }
+.log-status-rule_matched { color: #3498db; }
 
 .log-rule {
   font-size: 0.9em;
   color: #7f8c8d;
   margin-top: 4px;
   padding-left: 20px;
-  border-left: 2px solid #ddd;
 }
 
 .log-message {
   font-size: 0.9em;
   color: #34495e;
-  margin-top: 4px;
   font-style: italic;
 }
 
@@ -749,7 +640,7 @@ li button:hover {
   position: relative;
   width: 200px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: transform 0.3s;
 }
 
 .custom-node-wrapper:hover {
@@ -761,32 +652,22 @@ li button:hover {
   padding: 15px;
   border-radius: 12px;
   border: 2px solid;
-  background: white;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   gap: 12px;
-  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.custom-node:hover {
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-/* Node Types */
 .custom-node.task {
-  border-color: #3498db;
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  background: linear-gradient(135deg, #3498db, #2980b9);
 }
 
 .custom-node.approval {
-  border-color: #f39c12;
-  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  background: linear-gradient(135deg, #f39c12, #e67e22);
 }
 
 .custom-node.notification {
-  border-color: #27ae60;
-  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  background: linear-gradient(135deg, #27ae60, #229954);
 }
 
 .node-icon {
@@ -800,23 +681,9 @@ li button:hover {
   font-size: 24px;
 }
 
-.node-content {
-  flex: 1;
-}
-
-.node-type {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 2px;
-}
-
-.node-label {
-  font-weight: bold;
-  color: white;
-  font-size: 14px;
-  word-break: break-word;
-}
+.node-content { flex: 1; }
+.node-type { font-size: 11px; color: rgba(255,255,255,0.9); }
+.node-label { font-weight: bold; color: white; }
 
 /* Canvas Buttons */
 .canvas-btn {
@@ -826,11 +693,10 @@ li button:hover {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .canvas-btn.primary {
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  background: linear-gradient(135deg, #2c3e50, #3498db);
   color: white;
 }
 
@@ -839,57 +705,13 @@ li button:hover {
   box-shadow: 0 4px 15px rgba(52,152,219,0.4);
 }
 
-.canvas-btn.success {
-  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
-  color: white;
-}
-
-.canvas-btn.success:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(39,174,96,0.4);
-}
-
-/* Node Editor Panel */
+/* Node Editor */
 .node-editor {
   background: white;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.2);
   width: 280px;
-  border: 1px solid #e0e0e0;
-}
-
-.node-editor h4 {
-  margin-bottom: 1rem;
-  color: #2c3e50;
-}
-
-.node-editor .form-group {
-  margin-bottom: 1rem;
-}
-
-.node-editor label {
-  display: block;
-  margin-bottom: 0.3rem;
-  color: #666;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.node-editor input,
-.node-editor select {
-  width: 100%;
-  padding: 0.6rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
-  transition: all 0.3s;
-}
-
-.node-editor input:focus,
-.node-editor select:focus {
-  outline: none;
-  border-color: #3498db;
 }
 
 /* React Flow Components */
@@ -902,41 +724,6 @@ li button:hover {
 .react-flow__edge:hover .react-flow__edge-path {
   stroke: #ff4757;
   stroke-width: 4;
-}
-
-.react-flow__edge-label {
-  background: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: bold;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.react-flow__minimap {
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-}
-
-.react-flow__controls {
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.react-flow__controls button {
-  background: white;
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-  color: #333;
-  transition: all 0.3s;
-}
-
-.react-flow__controls button:hover {
-  background: #f5f5f5;
 }
 
 /* ===== LOADING SPINNER ===== */
@@ -963,139 +750,31 @@ li button:hover {
   100% { transform: rotate(360deg); }
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .app-header {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-
-  .app-header nav {
-    width: 100%;
-    justify-content: center;
-  }
-
-  main {
-    padding: 1rem;
-  }
-
-  .workflow-list-container {
-    padding: 0;
-  }
-
-  .list-header {
     flex-direction: column;
     text-align: center;
   }
 
-  .header-title h1 {
-    font-size: 2rem;
-  }
+  main { padding: 1rem; }
 
-  .filters-section {
-    flex-direction: column;
-  }
+  .workflow-grid { grid-template-columns: 1fr; }
 
-  .search-box {
-    width: 100%;
-  }
-
-  .filter-tabs {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .workflow-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .workflow-editor {
-    padding: 1rem;
-  }
-
-  .tab-switcher {
-    max-width: 100%;
-  }
-
-  .add-step, .add-rule {
-    flex-direction: column;
-  }
+  .add-step, .add-rule { flex-direction: column; }
 
   .add-step input,
   .add-step button,
   .add-rule select,
   .add-rule input,
-  .add-rule button {
-    width: 100%;
-  }
-
-  .card-footer {
-    flex-wrap: wrap;
-  }
-
-  .action-btn {
-    min-width: 100px;
-  }
-
-  .execution-view {
-    padding: 1rem;
-  }
-
-  .execution-view textarea {
-    font-size: 0.8rem;
-  }
+  .add-rule button { width: 100%; }
 }
 
 @media (max-width: 480px) {
-  .header-title h1 {
-    font-size: 1.5rem;
-  }
-
-  .workflow-meta {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .meta-item {
-    width: 100%;
-  }
-
-  .card-footer {
-    flex-direction: column;
-  }
-
-  .action-btn {
-    width: 100%;
-  }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .actions button {
-    width: 100%;
-  }
-}
-
-/* ===== UTILITY CLASSES ===== */
-.text-center {
-  text-align: center;
-}
-
-.mt-2 {
-  margin-top: 2rem;
-}
-
-.mb-2 {
-  margin-bottom: 2rem;
-}
-
-.hidden {
-  display: none;
-}
-
-.visible {
-  display: block;
+  .workflow-meta { flex-direction: column; }
+  .meta-item { width: 100%; }
+  .card-footer { flex-direction: column; }
+  .action-btn { width: 100%; }
+  .actions { flex-direction: column; }
+  .actions button { width: 100%; }
 }
