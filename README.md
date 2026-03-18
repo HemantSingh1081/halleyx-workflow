@@ -25,3 +25,32 @@ Backend
 cd backend
 npm install
 npm run dev
+```
+Backend runs on http://localhost:5000
+
+Fronted
+```bash
+cd frontend
+npm start
+```
+Frontend runs on http://localhost:3000
+
+Steps:
+Submit Expense (Task)
+
+Manager Approval (Approval)
+
+Finance Notification (Notification)
+
+Done (Task)
+
+Rules:
+If amount > 10000 → REJECT
+
+If amount <= 10000 → Finance Notification
+
+
+
+
+
+
